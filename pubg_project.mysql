@@ -1,0 +1,60 @@
+# Converted with pg2mysql-1.9
+# Converted on Mon, 14 Oct 2019 17:05:57 -0400
+# Lightbox Technologies Inc. http://www.lightbox.ca
+
+SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
+SET time_zone="+00:00";
+
+CREATE TABLE public.players (
+    id int(11) NOT NULL,
+    username varchar(255),
+    email varchar(255),
+    payment_card varchar(255),
+    hour_qty int(11),
+    created_at date
+) TYPE=MyISAM;
+
+CREATE TABLE public.teams (
+    id int(11) NOT NULL,
+    name varchar(255),
+    members varchar(255)[],
+    tournament_id int(11),
+    creator_id int(11)
+) TYPE=MyISAM;
+
+CREATE TABLE public.tournament_types (
+    id int(11) NOT NULL,
+    name varchar(255),
+    weapon varchar(255),
+    armor varchar(255),
+    player_count int(11),
+    winner_count int(11),
+    price int(11),
+    price_tax int(11),
+    prize int(11),
+    prize_tax int(11),
+    league varchar(255)[],
+    squad int(11)[]
+) TYPE=MyISAM;
+
+CREATE TABLE public.tournaments (
+    id int(11) NOT NULL,
+    name varchar(255),
+    tournament_name varchar(255),
+    league varchar(255),
+    squad int(11),
+    created timestamp,
+    updated timestamp,
+    team_count int(11),
+    is_full bool,
+    type_id int(11)
+) TYPE=MyISAM;
+
+ALTER TABLE public.players
+    ADD CONSTRAINT pk_players PRIMARY KEY (id);
+ALTER TABLE public.teams
+    ADD CONSTRAINT pk_teams PRIMARY KEY (id);
+ALTER TABLE public.tournament_types
+    ADD CONSTRAINT pk_tournament_types PRIMARY KEY (id);
+ALTER TABLE public.tournaments
+    ADD CONSTRAINT pk_tournaments PRIMARY KEY (id);

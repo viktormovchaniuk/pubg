@@ -1,0 +1,3 @@
+[run]
+source = pubg_project
+omit = pubg_project/test*

@@ -1,0 +1,40 @@
+{% extends 'admin.jinja2' %}
+
+{% block content_part %}
+
+<div class="tab-content text-white">
+  <h2 class="mb-5">Корзина (турниры за последние 30 дней):</h2>
+  {% if archive_tournaments|length > 0 %}
+  {% for tour in archive_tournaments|sort(attribute="status") %}
+  <div class="card mb-4">
+    <div class="card-body d-flex align-items-center justify-content-between">
+      <a target="_blank" class="text-dark" href="/event_list/{{tour.id}}">{{tour.name}}
+        <i>({{tour.tournament_name.decode("utf-8")}} )</i></a>
+     <span class="text-info ml-1">pass: {{tour.lobby_password}}</span>
+      {% if tour.status == -1 %}
+      <time
+        class='text-dark ml-auto'
+        datetime={{tour.start_date.strftime("%Y-%m-%dT%H:%M")}}>{{tour.start_date.strftime("%Y-%m-%d %H:%M")}}</time>
+      <span class="ml-3" style="color: red">Отменен</span>
+      {% endif %}
+      {% if tour.status == 1 %}
+       <time
+        class='text-dark ml-auto'
+        datetime={{tour.created.strftime("%Y-%m-%dT%H:%M")}}>{{tour.created.strftime("%Y-%m-%d %H:%M")}}</time>
+      <span class="ml-3" style="color: green">Завершен</span>
+      {% endif %}
+      <form method="post" action="{{request.route_url('admin_trash')}}">
+        <input type="hidden" name="id" value="{{tour.id}}">
+        <button type="submit" name="form.submitted" value="rise" class="btn btn-success ml-3"
+                  title="Востановить">
+          <i class="fa fa-arrow-up"></i>
+        </button>
+      </form>
+    </div>
+  </div>
+  {% endfor %}
+  {% else %}
+  <p>Нету турниров в корзине!</p>
+  {% endif %}
+</div>
+{% endblock content_part %}

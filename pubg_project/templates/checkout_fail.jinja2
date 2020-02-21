@@ -1,0 +1,21 @@
+{% extends "layout.jinja2" %}
+
+{% block content %}
+<section class="hero" id="hero">
+  <div class="container hero__container">
+
+    <div class="hero__cover click">
+
+      <p>Не удалось зарегистрироваться на турнир</p>
+      <a href="{{request.route_url('home')}}" class="btn hero__btn">На главную</a>
+
+    </div>
+
+    <img src="{{request.static_url('pubg_project:static/img/man.png')}}" alt="man">
+
+  </div>
+</section>
+
+
+
+{% endblock content %}

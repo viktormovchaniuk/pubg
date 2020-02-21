@@ -1,0 +1,55 @@
+</div>
+
+
+{% extends 'admin.jinja2' %}
+
+{% block content_part %}
+
+<div class="tab-content text-white">
+  <h2 class="mb-5">Общие настройки:</h2>
+  <form action="{{request.route_url('admin_setting')}}" method="POST" class="mb-4">
+    <div class="form-group row">
+      <label for="yt-link" class="col-sm-2 col-form-label">Youtube:</label>
+      <div class="col-sm-10">
+        <input name="yt_link" type="text" class="form-control" id="yt-link" value="{{settings.yt_link}}">
+      </div>
+    </div>
+    <div class="form-group row">
+      <label for="vk-link" class="col-sm-2 col-form-label">Vk:</label>
+      <div class="col-sm-10">
+        <input name="vk_link" type="text" class="form-control" id="vk-link" value="{{settings.vk_link}}">
+      </div>
+    </div>
+    <div class="form-group row">
+      <label for="ds-link" class="col-sm-2 col-form-label">Discord:</label>
+      <div class="col-sm-10">
+        <input name="ds_link" type="text" class="form-control" id="ds-link" value="{{settings.ds_link}}">
+      </div>
+    </div>
+    <div class="form-group row">
+      <label for="vk-link" class="col-sm-2 col-form-label">Email:</label>
+      <div class="col-sm-10">
+        <input name="email" type="email" class="form-control" id="vk-link" value="{{settings.email}}">
+      </div>
+    </div>
+    <hr class="bg-white">
+    <div class="form-group row">
+      <label for="stream" class="col-sm-2 col-form-label">Stream:</label>
+      <div class="col-sm-10">
+        <p>Example: https://www.youtube.com/watch?v=<span class="text-success">1-IAGZNod8s</span></p>
+        <input name="stream" palceholde="1-IAGZNod8s" type="text" class="form-control" id="stream" value="{{settings.stream}}">
+      </div>
+    </div>
+    <div class="form-group row mt-5">
+      <div class="col-auto">
+        <p class="text-success text-center">{{msg.decode("utf-8")}}</p>
+      </div>
+      <div class="col-auto ml-auto">
+        <button type="submit" name="form.submitted" value="Save" class="btn btn-success">Сохранить</button>
+      </div>
+    </div>
+  </form>
+</div>
+
+
+{% endblock content_part %}

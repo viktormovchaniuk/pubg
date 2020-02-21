@@ -1,0 +1,298 @@
+{% extends "layout.jinja2" %}
+
+{% block content %}
+<section class="hero" id="hero">
+  <div class="container hero__container">
+
+    <div class="hero__cover click">
+
+      <h1>Преврати свою игру в <span>заработок!</span></h1>
+      <p>выбери режим турниров <b>Warmod</b> & <b>Cybersport</b>, проведи донат и ожидай турнир</p>
+      <a href="#how" class="btn hero__btn">Подробнее</a>
+
+    </div>
+
+    <img src="{{request.static_url('pubg_project:static/img/man.png')}}" alt="man">
+
+  </div>
+</section>
+
+<section class="tabs" id="list">
+  <div class="container tabs__container">
+
+    <div class="tabs__sec">
+
+      <div class="tabs__cover">
+
+        <h4>Списки учасников</h4>
+        {% if data|length == 0 %}
+          <div class="tabs__btn">
+            <a class="btn btn--sm checkout_open" href="#">Донат в турнир</a>
+          </div>
+        {% else %}
+          <div class="tabs__btn">
+            <a href="{{request.route_url('event_list')}}" class="btn btn--sm">Дата и время игр</a>
+          </div>
+        {% endif %}
+       
+        <p>Дата<time datetime={{current_date.strftime("%Y-%m-%d")}}>{{current_date.strftime("%d/%m/%Y")}}</time></p>
+
+      </div>
+      {% if data|length != 0 %}
+      <ul class="tabs__list">
+        {% for item in data %}
+        <li class="tab-list-item"><a href="#{{item.id}}">{{ item.name.decode("utf-8") }} <span class="tab-list-item__value">({{item.teams|length}}/{{item.tour_capacity}})</span></a>
+          {% if item.is_full is sameas true %}
+            <p class="tab-list-item__date">{{item.start_date.strftime("%d.%m.%Y %H:%M")}}</p>
+          {% else %}
+            {% if item.show_date is sameas true %}
+              <p class="tab-list-item__date">{{item.start_date.strftime("%d.%m.%Y %H:%M")}}</p>
+            {% else %}
+              <p class="tab-list-item__date">Регистрация</p>
+            {% endif %}
+          {% endif %}
+        </li>
+        
+        {% endfor %}
+      </ul>
+
+      <div class="tabs__list__prev"></div>
+      <div class="tabs__list__next"></div>
+
+      {% for item in data %}
+      <div id="{{item.id}}" class="tabs__wrap">
+        <div class="swiper-container tabs__wrap_container">
+          <div class="swiper-wrapper tabs__wrap_wrapper">
+            {% for team in item.teams %}
+            <div class="swiper-slide tabs__wrap_team">
+              <p>Team # {{team.name}}</p>
+              {% for member in team.members %}
+              <li>{{member}}</li>
+              {% endfor %}
+            </div>
+            {% endfor %}
+            {% for i in range(item.teams|length + 1, item.tour_capacity + 1) %}
+            <div style="opacity: 0.5;" class="swiper-slide tabs__wrap_team">
+              <p>Team #{{i}}</p>
+              {% for i in range(item.squad) %}
+              <li><span style="opacity: 0;">{{loop.index}}</span></li>
+              {% endfor %}
+            </div>
+            {% endfor %}
+          </div>
+        </div>
+
+        <div class="tabs__list__next"><span></span></div>
+        <div class="tabs__list__prev"><span></span></div>
+      </div>
+      {% endfor %}
+
+    </div>
+   
+    {% endif %}
+  </div>
+</section>
+
+<section class="conf" id="conf">
+  <div class="container conf__container">
+
+    <div class="conf__sec">
+
+      <div class="conf__one conf__content">
+
+        <h3>Конфигурация турниров</h3>
+
+        <ul>
+
+          <li>Оружие</li>
+          <li>Броня</li>
+          <li>Состав</li>
+          <li>Количество участников в матче</li>
+          <li>Позиции победителей в матче</li>
+          <li>Донатный взнос от каждого участника</li>
+          <li>Донатный выигрыш каждому участнику</li>
+
+        </ul>
+
+      </div>
+
+
+      {%
+       set SQUADE_NAMES = {
+            1: "Solo",
+            2: "Duo",
+            4: "Squade"
+        }
+
+        %}
+
+
+      {% for tour in layout.tourType %}
+      <div class="conf__two conf__content">
+
+        <h2>{{tour.name}}</h2>
+        <ul>
+          <li>{{tour.weapon}}</li>
+          <li>{{tour.armor}}</li>
+          <li>
+            {% for i in tour.squad %}
+            {{SQUADE_NAMES[i]}}
+            {% endfor %}
+          </li>
+          <li>{{tour.player_count}}</li>
+          <li>1-{{tour.winner_count}}</li>
+          <li>{{tour.price}} Р + комиссия 1-6.9% в зависимости от платежной системы.</li>
+          <li>{{tour.prize}} Р, комиссия 1.9-3%</li>
+
+        </ul>
+
+      </div>
+
+      {% endfor %}
+
+    </div>
+
+  </div>
+</section>
+
+<section class="how" id="how">
+  <div class="container how__container">
+
+    <h5>Как это работает?</h5>
+
+    <div class="how__list">
+
+      <div class="how__item">
+        <span>1</span>
+        <p>Регистрация аккаунта</p>
+      </div>
+
+      <div class="how__item">
+        <span>2</span>
+        <p> Взнос доната за участие </p>
+      </div>
+
+      <div class="how__item">
+        <span>3</span>
+        <p>Регистрация в лобби игрового матча</p>
+      </div>
+
+      <div class="how__item">
+        <span>4</span>
+        <p>Участие и просмотр стрима YT</p>
+      </div>
+
+      <div class="how__item">
+        <span>5</span>
+        <p>Получение выигрыша после завершения матча в течение 5 минут</p>
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+<section class="rules" id="rules">
+  <div class="container rules__container">
+
+    <div class="rules__sec">
+
+      <h2>ПРАВИЛА УЧАСТИЯ В МАТЧАХ ОТ MCS</h2>
+      <p>
+        Внимание: Перед участием в мачтах, Вам следует подготовить Ваш ПК, для того, чтобы игра
+        не вылетала случайным образом. В случаях единичных вылетов из матча, донаты не возвращаются.
+      </p>
+
+      <div class="rules__row">
+
+        <div class="rules__no">
+
+          <h4>ЗАПРЕЩЕНО!</h4>
+
+          <p>1.Использовать все возможные читы</p>
+          <p>2.Приглашать участников, которые не внесли донат в турнир</p>
+          <p>3.Обьеденяться в команду с отрядом противника</p>
+          <p>4.Использовать нецензурную брань в общем голосовом чате и чате стрима</p>
+          <p>5.Оскорблять участников</p>
+
+        </div>
+
+        <div class="rules__last">
+
+          <h4>ПОСЛЕДСВИЯ НАРУШЕНИЯ ПРАВИЛ</h4>
+
+          <div class="rules__bord">
+            <span></span>
+            <span></span>
+          </div>
+
+          <p>
+            <span>Внимание</span> для потенциальных нарушителей.
+            В каждом матче находятся минимум 3 наблюдателя из отдела спецконтроля ФСБ MCS.
+            При обнаружении злоумышленника, последует незамедлительная дисквалификация из матча без возврата доната в
+            турнир
+          </p>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+</section>
+
+<section class="about" id="about">
+  <div class="container about__container">
+
+    <div class="about__video">
+    <h6 class="about__title">Об организаторе</h6>
+      <div class="video-container">
+        <iframe
+          class="video"
+          width="560" 
+          height="315" 
+          src="https://www.youtube.com/embed/kP_LzPy_U-k" 
+          frameborder="0" 
+          allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" 
+          allowfullscreen
+        >
+        </iframe>
+      </div>
+    </div>
+
+    <div class="about__text">
+
+      <p>Matteo - разносторонний творческий персонаж прямиком из глубинки Испании</p>
+
+      <p>Автор, скрывающийся за образом, имеет большой опыт в создании короткометражных
+        сюжетов и видео как для русскоязычной аудитории, так и для англоязычной.
+        Основные достижения:</p>
+
+      <p>Магистр кафедры МГНИ «Актерское Мастерство» , «Режиссура».</p>
+
+      <p>Гроссмейстер по шахматам Северной Кореи 2011г.</p>
+
+      <p>Победитель номинации «Золотой Голос России» 2019.</p>
+
+      <p>Доктор академических наук Европейской континентальной системы.</p>
+
+      <p>Дипломированный кандидат мастера спорта социальной инженерии в Южной Африке 2016г.</p>
+
+      <p>Youtube Канал MCS является свежим, современным, стильным, молодёжным и не преследует цели сбора большого обьема
+        просмотров, так как цель существования - обслуживание услуги сайта matteocs.ru : "Турниры от MCS ".</p>
+
+    </div>
+
+    <img src="{{request.static_url('pubg_project:static/img/bg_arm.png')}}" alt="">
+
+  </div>
+</section>
+
+{# <aside class="static">
+  <a href="#" class="btn btn--stream stream_open">Смотреть Матч Online</a>
+</aside> #}
+
+{% endblock content %}

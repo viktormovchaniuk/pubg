@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html lang="{{request.locale_name}}">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="pyramid web application">
+  <meta name="author" content="Pylons Project">
+  <link rel="shortcut icon" href="{{request.static_url('pubg_project:static/favicon.ico')}}">
+
+  <title>MATTEO CYBERSPORT - Преврати свою игру в заработок!</title>
+
+  <link href="https://fonts.googleapis.com/css?family=Oswald:300,400" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Russo+One:400" rel="stylesheet">
+  <!-- Custom styles for this scaffold -->
+  <link href="{{request.static_url('pubg_project:static/css/main.min.css')}}" rel="stylesheet">
+
+  {% if request.user.name == "admin" %}
+  <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+  <style>
+    .btn-admin {
+      cursor: pointer;
+      display: inline-block;
+      border: none;
+    }
+
+    .btn-admin-add {
+      background-color: green;
+
+    }
+
+    .btn-admin-remove {
+      background-color: red
+    }
+  </style>
+  {% endif %}
+
+  <!-- HTML5 shiv and Respond.js IE8 support of HTML5 elements and media queries -->
+  <!--[if lt IE 9]>
+      <script src="//oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js" integrity="sha384-0s5Pv64cNZJieYFkXYOTId2HMA2Lfb6q2nAcx2n0RTLUnCAoTTsS0nKEO27XyKcY" crossorigin="anonymous"></script>
+      <script src="//oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js" integrity="sha384-ZoaMbDF+4LeFxg6WdScQ9nnR1QC2MIRxA1O9KWEXQwns1G8UNyIEZIQidzb0T1fo" crossorigin="anonymous"></script>
+    <![endif]-->
+</head>
+
+
+
+
+<body>
+  <header class="header">
+    <div class="container">
+      <div class="header__container">
+
+        <div class="header__logo click">
+          <a href="{{request.route_url('home')}}"><img src="{{request.static_url('pubg_project:static/img/logo.png')}}"
+              alt="logo"></a>
+        </div>
+
+        <button class="hamburger" type="button">
+          <span class="hamburger__box">
+            <span class="hamburger__item"></span>
+          </span>
+        </button>
+
+        <nav class="nav">
+          <ul class="click">
+
+            <li><a href="/#list">Списки учасников</a></li>
+            <li><a href="/#conf">Конфигурация турниров</a></li>
+            <li><a href="#" class="btn btn--stream stream_open">Смотреть Матч Online</a></li>
+            <li><a href="/#rules">Правила турниров</a></li>
+            <li><a class="hover checkout_open" href="#">Донат в турнир</a></li>
+            <li><a href="/#about">О MATTEO</a></li>
+          </ul>
+        </nav>
+
+        <div class="header__soc">
+          <a href="#" class="order_open"><img src="{{request.static_url('pubg_project:static/img/bc.png')}}"
+              alt="backcall"></a>
+          <a target="_blank" href="{{layout.settings.ds_link}}"><img
+              src="{{request.static_url('pubg_project:static/img/discord.png')}}" alt="discord"></a>
+          <a target="_blank" href="{{layout.settings.vk_link}}"><img
+              src="{{request.static_url('pubg_project:static/img/vk.png')}}" alt="vk"></a>
+          <a target="_blank" href="{{layout.settings.yt_link}}"><img
+              src="{{request.static_url('pubg_project:static/img/utube.png')}}" alt="youtube"></a>
+        </div>
+
+      </div>
+    </div>
+  </header>
+
+  <main class="main">
+    {% block content %}
+    <div class="container">
+      <p>No content</p>
+    </div>
+    {% endblock content %}
+  </main>
+
+  <footer class="footer">
+    <div style="margin-bottom: 16px" class="container footer__container">
+      <p>&copy; matted Cybersport, 2019, all rights reserved</p>
+      <a href="#" class="order_open">Написать нам</a>
+    </div>
+    <div class="container footer__container">
+      <a href="https://megakassa.ru/" title="Платежный агрегатор Мегакасса" target="_blank"><img
+          src="https://megakassa.ru/pr/dark_ru.jpg" alt="Megakassa" /></a>
+      <span>{{layout.settings.email}}</span>
+    </div>
+  </footer>
+
+  <!-- modal -->
+  <div class="modal" id="order">
+    <form id="order-form" action="/ajax_mailto" class="form" method="post">
+
+      <button class="close order_close" type="button">
+        <span></span>
+        <span></span>
+      </button>
+
+      <h3>Оставьте заявку, <br>мы свяжемся с Вами</h3>
+      <input type="hidden" name="subject" value="Узнать подробнее!">
+
+      <div class="">
+        <input type="text" name="name" placeholder="Имя" required>
+      </div>
+
+      <div class="">
+        <input type="email" name="email" required placeholder="Ваш Email">
+      </div>
+
+      <div class="relative">
+        <textarea name="message" placeholder="Ваш текст..." required></textarea>
+      </div>
+
+      <div class="">
+        <button type="submit" class="btn modal__btn" name="submit">Отправить</button>
+      </div>
+
+      <p>Нажимая на кнопку, вы даете согласие <br>на обработку своих <a href="#" target="_blank">персональных данных</a>
+      </p>
+
+    </form>
+  </div>
+
+  <div class="modal" id="thanks">
+    <button class="close thanks_close" type="button">
+      <span></span>
+      <span></span>
+    </button>
+    <h3>Спасибо <br>за доверие!</h3>
+    <p>Мы обязательно с вами свяжемся!</p>
+  </div>
+
+  <div class="modal modal--video" id="stream">
+    <button class="close stream_close" type="button">
+      <span></span>
+      <span></span>
+    </button>
+    <div class="video-container">
+      <iframe
+          class="video"
+          width="560" 
+          height="315" 
+          src="https://www.youtube.com/embed/{{layout.settings.stream}}" 
+          frameborder="0" 
+          allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" 
+          allowfullscreen
+        >
+        </iframe>
+    </div>
+  </div>
+  
+
+  <div class="modal" id="checkout">
+    <form action="#" id="checkout-form" class="form" method="post">
+
+      <input type="hidden" name="shop_id" value="{{layout.payment_settings.shop_id}}" />
+      <input type="hidden" name="currency" value="{{layout.payment_settings.currency}}" />
+      <input type="hidden" name="debug" value="{{layout.payment_settings.debug}}" />
+      <input type="hidden" name="language" value="{{layout.payment_settings.language}}" />
+
+      <button class="close checkout_close" type="button">
+        <span></span>
+        <span></span>
+      </button>
+
+      <h3>Донат в турнир</h3>
+
+      <div class="">
+        <select required name="squad">
+          <option selected hidden disabled value="">Состав взвода...</option>
+          <option value="1">Solo</option>
+          <option value="2">Duo</option>
+          <option value="4">Squad</option>
+        </select>
+      </div>
+
+      <div class="">
+        <select required name="mode">
+          <option selected hidden disabled value="">Режим турнира...</option>
+          <option value="Warmode">Warmod</option>
+          <option value="Cybersport">Cybersport</option>
+        </select>
+      </div>
+
+      <div class="">
+        <input name="amount" style="text-align: center;" type="text" name="text" placeholder="Донат в турнир: 100 RUB"
+          readonly>
+      </div>
+
+      <div class="">
+        <input type="email" name="client_email" required placeholder="Ваш Email">
+      </div>
+
+      <div class="">
+        <input type="text" name="nickname" required placeholder="Игровое имя в PUBG">
+      </div>
+
+      <div style="display: none;" class="team-input">
+        <input type="text" name="nickname_1" required placeholder="Имя тиммейта:">
+      </div>
+
+      <div style="display: none;" class="team-input">
+        <input type="text" name="nickname_2" required placeholder="Имя тиммейта:">
+      </div>
+
+      <div style="display: none;" class="team-input">
+        <input type="text" name="nickname_3" required placeholder="Имя тиммейта:">
+      </div>
+
+      <div class="">
+        <input type="number" name="hour_count" required placeholder="Кол-во часов в PUBG">
+      </div>
+
+      <div class="">
+        <select required name="method_id">
+          <option selected hidden disabled value="">Платежный метод</option>
+          <option value="22">Qiwi Wallet RUB</option>
+          <option value="8">Visa, MasterCard, Maestro, МИР RUB</option>
+          <option value="42">Сбербанк Онлайн RUB</option>
+          <option value="1">Яндекс.Деньги RUB</option>
+          <option value="39">Альфа-Клик RUB</option>
+          <option value="16">WebMoney RUB</option>
+          <option value="32">Евросеть RUB</option>
+          <option value="64">Билайн RUB</option>
+          <option value="28">Лидер RUB</option>
+          <option value="33">Связной RUB</option>
+          <option value="37">Платежные терминалы России RUB</option>
+          <option value="57">Банковский перевод RUB</option>
+          <option value="62">Payeer RUB</option>
+          <option value="63">Tele2 RUB</option>
+          <option value="82">Мегафон RUB</option>
+          <option value="83">МТС RUB</option>
+        </select>
+      </div>
+
+      <div style="display: none;" class="phone-number">
+        <input type="number" name="phone_number" required placeholder="Номер телефона для Qiwi">
+      </div>
+
+
+      <div class="">
+        <input type="number" name="payment_info" required placeholder="Информация для получения доната">
+      </div>
+
+      <div class="">
+        <select required name="payout_method">
+          <option selected hidden disabled value="">Метод выплаты</option>
+          <option value="Payeer">Payeer</option>
+          <option value="MTS, Beeline, Tele2, Megafon">MTS, Beeline, Tele2, Megafon</option>
+          <option value="Visa, MasterCard, Maestro - RUS">Visa, MasterCard, Maestro - RUS</option>
+          <option value="Perfect Money">Perfect Money</option>
+          <option value="WebMoney">WebMoney</option>
+          <option value="Qiwi Wallet 2">Qiwi Wallet 2</option>
+          <option value="Евросеть RUB">Евросеть RUB</option>
+          <option value="Яндекс.Деньги">Яндекс.Деньги</option>
+        </select>
+      </div>
+
+
+      <div class="">
+        <button type="submit" class="btn modal__btn" name="submit">Отправить</button>
+      </div>
+
+      <p>Нажимая на кнопку, вы даете согласие <br>на обработку своих <a href="#" target="_blank">персональных данных</a>
+      </p>
+
+    </form>
+  </div>
+<!-- modal end-->
+
+  <script src="{{ request.static_url('pubg_project:static/js/scripts.min.js') }}"></script>
+  <script src="//code.jivosite.com/widget.js" data-jv-id="TaRxEBGvrT" async></script>
+
+  <script>
+    var swiper = new Swiper('.swiper-container', {
+      slidesPerView: 5,
+      slidesPerColumn: 4,
+      spaceBetween: 30,
+      slidesPerColumnFill: 'row',
+      navigation: {
+        nextEl: '.tabs__list__next',
+        prevEl: '.tabs__list__prev',
+      },
+      breakpoints: {
+        1200: {
+          slidesPerView: 4,
+        },
+        992: {
+          slidesPerView: 3,
+        },
+        767: {
+          slidesPerView: 2,
+          slidesPerColumn: 3,
+        },
+        576: {
+          slidesPerView: 1,
+          slidesPerColumn: 3,
+        },
+        480: {
+          slidesPerView: 1,
+          slidesPerColumn: 3,
+        }
+      }
+    });
+  </script>
+
+  <script>
+
+    jQuery("#checkout-form").on('change', 'select[name="squad"]', function (e) {
+      e.preventDefault();
+      var value = e.target.value;
+      var teamInputs = jQuery('.team-input');
+      var priceInput = jQuery('input[name="amount"]');
+      var tax = 0 / 100;
+      var price = 100;
+
+      var totalPrice = (value * price) + (value * price) * tax;
+
+      priceInput.attr("placeholder", "Донат в турнир: " + totalPrice + " RUB");
+      switch (value) {
+        case "1":
+          teamInputs.css("display", "none");
+          break;
+        case "2":
+          teamInputs.css("display", "none");
+          jQuery(teamInputs[0]).css("display", "block");
+          break;
+        case "4":
+          teamInputs.css("display", "block");
+          break;
+        default:
+          teamInputs.css("display", "none");
+      }
+    });
+
+    jQuery("#checkout-form").on('change', 'select[name="method_id"]', function (e) {
+      e.preventDefault();
+      var value = e.target.value;
+      var phoneInput = jQuery('.phone-number');
+
+      if (value == "22") {
+        phoneInput.css("display", "block")
+      } else {
+        phoneInput.css("display", "none")
+      }
+    });
+
+
+    $("#checkout-form").validate({
+      submitHandler: function (form) {
+        var data = $("#checkout-form").serialize();
+        var btn = $(form).find('.modal__btn');
+        jQuery.ajax({
+          type: "POST",
+          url: "{{request.route_url('ajax_order')}}",
+          data: data,
+          beforeSend: function () {
+            btn.attr('disabled', 'disabled');
+          },
+          success: function (data) {
+            window.location.replace(data.url);
+          },
+          complete: function () {
+            btn.removeAttr('disabled');
+          }
+        });
+      }
+    });
+
+    $("#order-form").validate({
+      submitHandler: function (form) {
+        var data = $("#order-form").serialize();
+
+        jQuery.ajax({
+          type: "POST",
+          url: "{{request.route_url('ajax_mailto')}}",
+          data: data,
+          success: function (data) {
+            $(".modal").popup("hide");
+            $("#thanks").popup("show");
+            setTimeout(function () {
+              $("#order").trigger("reset");
+            }, 500);
+          }
+        });
+      }
+    });
+
+
+    // jQuery("#checkout-form").on('submit', function (e) {
+    //   e.preventDefault();
+
+    // })
+  </script>
+
+
+</body>
+
+</html>

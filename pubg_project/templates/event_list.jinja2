@@ -1,0 +1,46 @@
+{% extends "layout.jinja2" %}
+
+{% block content %}
+
+<div class="container">
+  <ul class="grums">
+    <li><a href="{{request.route_url('home')}}">Главная</a></li>
+    <li><span>></span></li>
+    <li><span>Спосок игр на сегодня</span></li>
+  </ul>
+</div>
+
+<div class="container tabs__container">
+  <div class="list">
+    {% if tournaments|length > 0 %}
+    {% for tour in tournaments|sort(attribute="name") %}
+    <a href="/event_list/{{tour.id}}" class=" list__item">
+      <span>{{tour.name}} <i>({{tour.tournament_name.decode("utf-8")}} )</i></span>
+      {% if tour.status == 0 %}
+        {% if tour.is_full is sameas true %}
+         <time
+          datetime={{tour.start_date.strftime("%Y-%m-%dT%H:%M")}}>{{tour.start_date.strftime("%Y-%m-%d %H:%M")}}</time>
+        {% else %}
+        <span style="color: #fa5003">Регистрация: ({{tour.team_count}}/{{tour.tour_capacity}})
+         {% if tour.show_date %}
+         <time
+          datetime={{tour.start_date.strftime("%Y-%m-%dT%H:%M")}}>| {{tour.start_date.strftime("%Y-%m-%d %H:%M")}}</time>
+        {% endif %}
+        </span>
+        {% endif %}
+      {% endif %}
+      {% if tour.status == -1 %}
+      <span style="color: red">Отменен</span>
+      {% endif %}
+      {% if tour.status == 1 %}
+      <span style="color: green">Завершен</span>
+      {% endif %}
+    </a>
+    {% endfor %}
+    {% else %}
+    <p>Нету других турниров на сегодня</p>
+    {% endif %}
+  </div>
+</div>
+
+{% endblock content %}

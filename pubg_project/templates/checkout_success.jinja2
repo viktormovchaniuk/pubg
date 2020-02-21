@@ -1,0 +1,25 @@
+{% extends "layout.jinja2" %}
+
+{% block content %}
+<section class="hero" id="hero">
+  <div class="container hero__container">
+
+    <div class="hero__cover click">
+
+      <h1>Турнир: {{tour_name}}</h1>
+      <p>Слот: {{team_number}}</p>
+      {% if show_password %}
+      <p>Пароль от лобби: {{tour_password}}</p>
+      {% endif %}
+      <a href="{{url}}" class="btn hero__btn">Перейти к турниру</a>
+
+    </div>
+
+    <img src="{{request.static_url('pubg_project:static/img/man.png')}}" alt="man">
+
+  </div>
+</section>
+
+
+
+{% endblock content %}

@@ -1,0 +1,33 @@
+{% extends 'admin_layout.jinja2' %}
+
+
+{% block content %}
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-3">
+      <div class="nav flex-column nav-pills" aria-orientation="vertical">
+        <a class="nav-link {{'active' if request.route_url('admin') == request.current_route_url() else ''}}"
+          href="{{request.route_url('admin')}}">Активные турниры</a>
+        <a class="nav-link {{'active' if request.route_url('admin_archive') == request.current_route_url() else ''}}"
+          href="{{request.route_url('admin_archive')}}">Архив</a>
+        <a class="nav-link {{'active' if request.route_url('admin_trash') == request.current_route_url() else ''}}"
+          href="{{request.route_url('admin_trash')}}">Корзина</a>
+        <div class="border border-primary my-4"></div>
+        <a class="nav-link {{'active' if request.route_url('admin_payouts') == request.current_route_url() else ''}}"
+          href="{{request.route_url('admin_payouts')}}">Выплаты</a>
+        <div class="border border-primary my-4"></div>
+        <a class="nav-link {{'active' if request.route_url('admin_setting') == request.current_route_url() else ''}}"
+          href="{{request.route_url('admin_setting')}}">Настройки</a>
+      </div>
+    </div>
+    <div class="col-9">
+      {% block content_part %}
+      <div class="container">
+        <p class="text-white">No content</p>
+      </div>
+      {% endblock content_part %}
+    </div>
+  </div>
+</div>
+{% endblock content %}

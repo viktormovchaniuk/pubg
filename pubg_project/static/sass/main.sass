@@ -1,0 +1,646 @@
+@import "libs"
+@import "base"
+
+.container
+	max-width: 1440px
+	width: 100%
+	padding: 0 15px
+	margin: 0 auto
+
+
+.header
+	position: fixed
+	right: 0
+	left: 0
+	background-color: #252525
+	padding: 7px 0
+	transition: all .3s
+	z-index: 1001
+
+	&--active, &--menu
+		background-color: rgba(#252525, .9)
+
+
+	&__container
+		position: relative
+		display: flex
+		justify-content: space-between
+		align-items: center
+
+	&__soc
+
+		a
+			margin-right: 15px
+			
+
+
+.main
+	padding: 130px 0
+	background-color: #232323
+	overflow: hidden
+	position: relative
+
+
+.nav
+	ul
+		display: flex
+		justify-content: space-between
+
+	li
+		margin-right: 55px
+		&:last-child
+			margin-right: 0
+
+	a
+		position: relative
+		z-index: 1
+		color: #ffffff
+		font-size: 18px
+
+		&::before
+			content: ''
+			width: 0
+			transform: scale(0)
+			transition: all .3s
+			position: absolute
+			bottom: -36px
+			width: 100%
+			height: 7px
+			background-color: #fa5003
+			background-image: linear-gradient(to top, #ad3404 0%, #fc6b00 98%, #fc6b00 100%)
+			border-radius: 4px
+			z-index: -1
+
+		&:hover,
+		&:focus
+			color: $accent
+			text-decoration: none
+			&::before
+				transform: scale(1)
+
+
+.hero
+	background-image: url(../img/hero.jpg)
+	background-size: cover
+	background-position: center
+	background-repeat: no-repeat
+	padding: 270px 0
+	overflow: visible
+
+	&__container
+		position: relative
+
+		&::before
+			content: url(../img/bullet_bot.png)
+			position: absolute
+			bottom: -80%
+			left: 0
+
+		&::after
+			content: url(../img/smock_doun.png)
+			position: absolute
+			top: 0
+			right: -8%
+
+
+	&__cover
+		width: 50%
+		text-align: center
+		position: relative
+		z-index: 1
+
+		&::before
+			content: url(../img/bullet_up.png)
+			position: absolute
+			top: -46%
+			right: 3%
+
+	h1
+		font-size: 50px
+		font-family: $one
+		font-weight: 400
+		letter-spacing: 4.8px
+
+		span
+			font-size: 66px
+			letter-spacing: 4.4px
+			text-transform: uppercase
+
+	p
+		font-family: $prom
+		font-size: 30px
+		color: #ffffff
+		margin: 50px 0 45px
+
+
+		b
+			color: #c34403
+
+	img
+		position: absolute
+		top: -36%
+		right: 5%
+
+
+.tabs
+	padding: 25px 0
+	z-index: 1
+
+	&__btn
+		display: flex
+		justify-content: center
+
+	&__container
+		position: relative
+		z-index: 1
+
+		&::before
+			content: url(../img/broken_tab.png)
+			position: absolute
+			bottom: 40%
+			left: -13%
+			z-index: -1
+
+	&__sec
+		box-shadow: 0 0 32px rgba(0, 0, 0, 0.68)
+		background-color: #252525
+		padding: 40px 40px 15px
+		margin-bottom: 20px
+
+	&__cover
+		display: flex
+		align-items: center
+		justify-content: space-between
+
+		h4
+			font-size: 24px
+			text-transform: uppercase
+
+		p
+			color: #737373
+			font-size: 18px
+			font-family: $prom
+
+			time
+				font-size: 24px
+				font-family: $fonts
+				margin-left: 30px
+				color: #ffffff
+
+	&__list
+		margin: 35px 0 55px
+		display: flex
+		justify-content: space-between
+		flex-wrap: wrap
+		background-color: #363636
+		border-radius: 5px 5px 0 0
+		padding: 15px 35px 0
+
+		li
+			position: relative
+			text-align: center
+			width: 25%
+			margin-bottom: 15px
+
+		a
+			display: block
+			color: $text
+			font-size: 22px
+			padding-bottom: 20px
+
+			&::before
+				content: ''
+				position: absolute
+				bottom: 0
+				left: 50%
+				width: 110%
+				transform: translate(-50%, 0)
+				height: 2px
+				box-shadow: 0 0 32px rgba(199, 70, 3, 0.68)
+				border-radius: 4px
+				background-color: #fa5003
+				background-image: linear-gradient(to top, #ad3404 0%, #fc6b00 98%, #fc6b00 100%)
+				transition: all .6s
+
+		.active
+			color: #e75d01
+
+			&::before
+				height: 7px
+				bottom: -3px
+
+		&__prev,
+		&__next
+			position: absolute
+			top: 56%
+			width: 35px
+			height: 35px
+			box-shadow: 0 0 32px rgba(199, 70, 3, 0.68)
+			border-radius: 5px
+			background-color: #fa5003
+			background-image: linear-gradient(to top, #ad3404 0%, #fc6b00 98%, #fc6b00 100%)
+			z-index: 5
+
+		&__next
+			right: 15px
+
+			&::before
+				content: url(../img/ar_right.png)
+				position: absolute
+				top: 4px
+				right: 9px
+
+		&__prev
+			left: 15px
+
+			&::before
+				content: url(../img/ar_left.png)
+				position: absolute
+				top: 4px
+				right: 12px
+
+	&__wrap
+
+		&_team
+			background-color: #363636
+			border-radius: 5px 5px 0 0
+			width: 19%
+			margin-bottom: 30px
+			transition: all .5s
+
+			p
+				background-color: #424242
+				padding: 10px
+				color: #ffffff
+				transition: all .5s
+
+			li
+				padding: 10px
+				border-bottom: 1px solid #424242
+				font-family: $prom
+				font-weight: 300
+				transition: all .5s
+
+			&:hover,
+			&:focus
+				transform: scale(1.02, 1.02)
+				transition: all .5s
+
+				p
+					color: $accent
+					transition: all .5s
+
+				li
+					color: #fff
+					transition: all .5s
+
+
+.conf
+	padding: 20px 0 40px
+	overflow: visible
+
+	&__container
+		position: relative
+		z-index: 1
+
+		&::before
+			content: url(../img/broken_conf.png)
+			position: absolute
+			bottom: -32%
+			right: -15%
+			z-index: -1
+
+	&__sec
+		display: flex
+		justify-content: space-between
+		position: relative
+		box-shadow: 0 0 32px rgba(0, 0, 0, 0.68)
+		background-color: #252525
+		padding: 50px 40px
+		z-index: 101
+
+	&__content
+		width: 32%
+
+	&__one
+
+		h3
+			font-size: 24px
+			margin-bottom: 50px
+			text-transform: uppercase
+
+		li
+			margin-bottom: 45px
+			font-size: 18px
+			font-family: $prom
+			font-weight: 300
+
+			&:last-child
+				margin-bottom: 0
+
+	&__two
+		text-align: center
+
+		h2
+			font-size: 24px
+			text-transform: uppercase
+			color: $accent
+			margin-bottom: 20px
+			position: relative
+
+			&::before
+				content: ''
+				position: absolute
+				bottom: -25px
+				left: 0
+				width: 100%
+				height: 4px
+				border-radius: 4px
+				box-shadow: 0 0 32px rgba(199, 70, 3, 0.68)
+				background-image: linear-gradient(to top, #ad3404 0%, #fc6b00 98%, #fc6b00 100%)
+				background-color: #fa5003
+
+		li
+			background-color: #363636
+			color: #ffffff
+			font-size: 18px
+			border-bottom: 1px solid #424242
+			padding: 23px 0 22px
+
+			&:last-child
+				border-bottom: none
+
+
+.how
+	padding: 35px 0 100px
+	overflow: visible
+
+	&__container
+		position: relative
+		z-index: 1
+
+		&::before
+			content: url(../img/how_smock.png)
+			position: absolute
+			top: -80%
+			right: 5%
+
+	h5
+		margin: 0 0 90px 40px
+		text-transform: uppercase
+
+	&__list
+		display: flex
+		justify-content: space-around
+		position: relative
+		color: #ffffff
+
+		&::before
+			content: url(../img/how.png)
+			position: absolute
+			top: -5px
+			right: -16%
+
+	&__item
+		text-align: center
+		width: 18%
+
+		span
+			text-align: center
+			position: relative
+
+			&::before
+				content: url(../img/span.png)
+				position: absolute
+				top: -8px
+				left: -15px
+
+		p
+			margin-top: 35px
+			text-align: center
+
+
+.rules
+	overflow: visible
+
+	&__container
+		position: relative
+
+	&__sec
+		box-shadow: 0 0 32px rgba(0, 0, 0, 0.97)
+		border-radius: 5px
+		background-color: #252525
+		padding: 50px 15px 90px
+		position: relative
+		top: 100px
+		left: 0
+		z-index: 1
+
+		h2
+			text-transform: uppercase
+			margin-bottom: 35px
+
+		h4
+			color: #e75d01
+			font-size: 18px
+			text-transform: uppercase
+			margin: 25px 0 30px
+
+		p
+			font-size: 18px
+			line-height: 2
+			font-family: $prom
+
+	&__row
+		display: flex
+		justify-content: space-around
+
+	&__no
+		width: 51%
+
+	&__last
+		width: 47%
+		border: 3px solid #cb4902
+		border-top: none
+		border-radius: 5px
+		padding: 0 45px
+		position: relative
+
+		&::before
+			content: url(../img/warning.png)
+			position: absolute
+			top: -27px
+			right: 30px
+			background-color: transparent
+			z-index: 1
+
+		span
+			color: #e75d01
+
+
+	&__bord
+		span
+			position: absolute
+			top: 0
+			left: 0
+			background-color: #cb4902
+			box-shadow: 0 0 7px #cb4902
+			width: 85%
+			height: 3px
+			z-index: 1
+
+			&:last-child
+				width: 5%
+				left: 95%
+
+
+.about
+	background-image: url(../img/about.jpg)
+	background-position: center
+	background-size: cover
+	background-repeat: no-repeat
+	padding: 210px 0 0
+	overflow: visible
+	position: relative
+
+	&__container
+		display: flex
+		justify-content: space-between
+		position: relative
+
+		&::before
+			content: url(../img/ab_left.png)
+			position: absolute
+			bottom: -130px
+			left: -5%
+			z-index: 111
+
+	img
+		position: absolute
+		bottom: 0
+		left: -25%
+		z-index: 1
+	
+
+	&__text
+		width: 48%
+		padding-bottom: 200px
+
+		p
+			line-height: 2
+			position: relative
+			margin-bottom: 40px
+			text-indent: 10px
+			font-size: 18px
+			z-index: 101
+
+			&:last-child
+				margin-bottom: 0
+				text-indent: 0
+		
+
+.footer
+	background-color: #232323
+	padding: 20px 0 60px
+
+	&__container
+		display: flex
+		justify-content: space-between
+
+		p
+			font-size: 16px
+			text-transform: uppercase
+			font-weight: 300
+			color: #ffffff
+
+		a
+			color: #ffffff
+			font-size: 16px
+			font-weight: 300
+			text-transform: uppercase
+			position: relative
+			z-index: 1
+
+			&::before
+				content: ''
+				width: 0
+				transform: scale(1)
+				transition: all .7s
+				position: absolute
+				bottom: 0
+				width: 100%
+				height: 1px
+				background-color: #fff
+				z-index: -1
+
+			&:hover,
+			&:focus
+				color: $accent
+				text-decoration: none
+				transition: all .7s
+				&::before
+					transform: scale(0)
+					background-color: $accent
+
+
+.list
+	padding-bottom: 30px 
+
+	&__item
+		position: relative
+		display: flex
+		justify-content: space-between
+		width: 100%
+		background-color: #424242
+		padding: 10px
+		color: #fff
+		margin-bottom: 10px
+		font-size: 22px
+		transition: all .6s
+
+		&::before
+			content: ''
+			width: 0
+			transition: all .6s
+			position: absolute
+			left: 50%
+			bottom: 0
+			width: 50%
+			height: 7px
+			background-color: #fa5003
+			background-image: linear-gradient(to top, #ad3404 0%, #fc6b00 98%, #fc6b00 100%)
+			border-radius: 4px
+
+		&:last-child
+			margin-bottom: 0
+
+		&:hover,
+		&:focus
+			color: $accent
+			text-decoration: none
+
+			&::before
+				left: 0
+				transform: scale(1)
+
+
+.grums
+	display: flex
+	align-items: center
+	margin-bottom: 30px
+
+	a,
+	span
+		margin: 0 5px
+		color: #fff
+		font-size: 20px
+
+	a
+		transition: all .6s
+		&:hover,
+		&:focus
+			color: $accent
+
+
+@import "page"
+@import "media" // Always at the end

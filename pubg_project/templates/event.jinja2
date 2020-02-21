@@ -1,0 +1,108 @@
+{% extends "layout.jinja2" %}
+
+{% block content %}
+
+<div class="container">
+	<ul class="grums">
+		<li><a href="{{request.route_url('home')}}">Главная</a></li>
+		<li><span>></span></li>
+		<li><a href="{{request.route_url('event_list')}}">Спосок игр на сегодня</a></li>
+		<li><span>></span></li>
+		<li><span>{{tournament.name}}</span></li>
+	</ul>
+</div>
+
+<section class="tabs" id="list">
+	<div class="container tabs__container">
+		<div class="tabs__sec">
+
+			<div class="tabs__cover">
+				<h4>{{tournament.tournament_name.decode("utf-8")}}</h4>
+				{% if tournament.status == 0 %}
+				{% if tournament.is_full is sameas true %}
+				<p>Дата<time
+						datetime={{tournament.start_date.strftime("%Y-%m-%d %H:%M")}}>{{tournament.start_date.strftime("%d/%m/%Y %H:%M")}}</time>
+				</p>
+				{% else %}
+				{% if tournament.show_date %}
+						<time
+						datetime={{tournament.start_date.strftime("%Y-%m-%d %H:%M")}}>{{tournament.start_date.strftime("%d/%m/%Y %H:%M")}}</time>
+				{% endif %}
+				<span style="color: #fa5003">Регистрация открыта</span>
+				{% endif %}
+				{% endif %}
+				{% if tournament.status == -1 %}
+				<span style="color: red">Отменен</span>
+				{% endif %}
+				{% if tournament.status == 1 %}
+				<span style="color: green">Завершен</span>
+				{% endif %}
+			</div>
+				{% if request.user.name == "admin" and tournament.status == 1 %}
+					<p>	Количество отмеченных победителей: {{tournament.selected_winner_count}}/{{tournament.tour_winner_count}}</p>
+				{% endif%}
+			<div class="tabs__list">
+				
+			</div>
+			
+
+
+			<div id="one" class="tabs__wrap">
+				<div class="swiper-container tabs__wrap_container">
+					<div class="swiper-wrapper tabs__wrap_wrapper">
+						{% for team in teams|sort(attribute="id") %}
+						<div class="swiper-slide tabs__wrap_team">
+							<p>Team # {{team.name}}</p>
+							{% for member in team.members %}
+							{% if request.user.name == "admin" and tournament.status == 1 %}
+							<li><span>{{member}}</span>
+								<span style="float:right">
+									<form method="post" action="{{request.route_url('admin_team')}}">
+										<input type="hidden" name="id" value="{{team.id}}">
+										<input type="hidden" name="member" value="{{member}}">
+										<input type="hidden" name="event_id" value="{{request.matchdict['id']}}">
+										{% if member in team.winners %}
+										<button type="submit" name="form.submitted" value="remove" class="btn-admin btn-admin-remove"
+											title="Убрать">
+											<i class="fa fa-close"></i>
+										</button>
+										{% else %}
+										<button type="submit" name="form.submitted" value="add" class="btn-admin btn-admin-add"
+											title="Назначить победителем">
+											<i class="fa fa-arrow-up"></i>
+										</button>
+										{% endif %}
+									</form>
+								</span>
+							</li>
+							{% else %}
+							{% if member in team.winners %}
+							<li style="border: 1px solid #fa5003">{{member}}</li>
+							{% else %}
+							<li>{{member}}</li>
+							{% endif %}
+							{% endif %}
+							{% endfor %}
+						</div>
+						{% endfor %}
+						{% for i in range(teams|length + 1, tournament.tour_capacity + 1) %}
+						<div style="opacity: 0.5;" class="swiper-slide tabs__wrap_team">
+							<p>Team #{{i}}</p>
+							{% for i in range(tournament.squad) %}
+							<li><span style="opacity: 0;">{{loop.index}}</span></li>
+							{% endfor %}
+						</div>
+						{% endfor %}
+					</div>
+
+				</div>
+
+				<div class="tabs__list__next"><span></span></div>
+				<div class="tabs__list__prev"><span></span></div>
+			</div>
+
+		</div>
+
+	</div>
+</section>
+{% endblock content %}

@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="{{request.locale_name}}">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="pyramid web application">
+  <meta name="author" content="Pylons Project">
+  <link rel="shortcut icon" href="{{request.static_url('pubg_project:static/favicon.ico')}}">
+
+  <title>MATTEO CYBERSPORT - Преврати свою игру в заработок!</title>
+
+  <link href="https://fonts.googleapis.com/css?family=Oswald:300,400" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Russo+One:400" rel="stylesheet">
+  <!-- Custom styles for this scaffold -->
+  <link rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/tempusdominus-bootstrap-4/5.0.1/css/tempusdominus-bootstrap-4.min.css" />
+  <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+  <link href="{{request.static_url('pubg_project:static/admin/css/bootstrap.min.css')}}" rel="stylesheet">
+
+
+  <!-- HTML5 shiv and Respond.js IE8 support of HTML5 elements and media queries -->
+  <!--[if lt IE 9]>
+      <script src="//oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js" integrity="sha384-0s5Pv64cNZJieYFkXYOTId2HMA2Lfb6q2nAcx2n0RTLUnCAoTTsS0nKEO27XyKcY" crossorigin="anonymous"></script>
+      <script src="//oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js" integrity="sha384-ZoaMbDF+4LeFxg6WdScQ9nnR1QC2MIRxA1O9KWEXQwns1G8UNyIEZIQidzb0T1fo" crossorigin="anonymous"></script>
+    <![endif]-->
+</head>
+
+
+
+
+<body class="bg-dark">
+
+  <header class="mb-5">
+    <nav class="navbar navbar-dark bg-dark border border-primary border-right-0 border-left-0 border-top-0">
+      <div class="container-fluid">
+        <a class="navbar-brand" href="{{request.route_url('home')}}">MATTEO</a>
+
+        <a target="_blank" class="btn btn-warning ml-auto" href="{{request.route_url('home')}}">На главную</a>
+        {% if request.user is not none %}
+        <a class="btn btn-danger ml-4" href="{{request.route_url('admin_logout')}}">Выйти</a>
+        {% endif %}
+      </div>
+    </nav>
+  </header>
+
+  <main class=" d-flex flex-1">
+    {% block content %}
+    <div class="container">
+      <p>No content</p>
+    </div>
+    {% endblock content %}
+  </main>
+
+
+
+
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+    integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+    crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+    integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+    crossorigin="anonymous"></script>
+  <script src="{{ request.static_url('pubg_project:static/admin/js/bootstrap.min.js') }}"></script>
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.2/moment.min.js"></script>
+  <script type="text/javascript" src="{{ request.static_url('pubg_project:static/admin/js/locales/ru.js') }}"></script>
+  <script type="text/javascript"
+    src="https://cdnjs.cloudflare.com/ajax/libs/tempusdominus-bootstrap-4/5.0.1/js/tempusdominus-bootstrap-4.min.js"></script>
+
+  
+
+
+</body>
+
+</html>
